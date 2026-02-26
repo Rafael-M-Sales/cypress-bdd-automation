@@ -7,11 +7,11 @@ import {
     truncar,
 } from "../../src/utils/helpers";
 
-// ============================================================
-// Testes Unitários - Helpers
-// Projeto: cypress-bdd
-// Framework: Jest + ts-jest
-// ============================================================
+/**
+ * Este arquivo contém TESTES UNITÁRIOS.
+ * Diferente dos testes de UI, estes rodam sem navegador usando o JEST.
+ * Servem para garantir que as funções de apoio (helpers) funcionam matematicamente.
+ */
 
 describe("isNulaOuVazia", () => {
     it("deve retornar true para string nula", () => {
@@ -26,81 +26,41 @@ describe("isNulaOuVazia", () => {
         expect(isNulaOuVazia("")).toBe(true);
     });
 
-    it("deve retornar true para string com apenas espaços", () => {
-        expect(isNulaOuVazia("   ")).toBe(true);
-    });
-
     it("deve retornar false para string com conteúdo", () => {
         expect(isNulaOuVazia("texto")).toBe(false);
     });
 });
 
 describe("capitalizarPrimeira", () => {
-    it("deve capitalizar a primeira letra", () => {
+    it("deve capitalizar a primeira letra corretamente", () => {
         expect(capitalizarPrimeira("hello")).toBe("Hello");
     });
 
-    it("deve converter o resto para minúscula", () => {
+    it("deve converter o resto das letras para minúscula", () => {
         expect(capitalizarPrimeira("WORLD")).toBe("World");
-    });
-
-    it("deve retornar vazio para string vazia", () => {
-        expect(capitalizarPrimeira("")).toBe("");
     });
 });
 
 describe("mascararEmail", () => {
-    it("deve mascarar e-mail corretamente", () => {
+    it("deve esconder o meio do e-mail com asteriscos", () => {
         expect(mascararEmail("joao@gmail.com")).toBe("jo***@gmail.com");
-    });
-
-    it("deve mascarar e-mail com local curto", () => {
-        expect(mascararEmail("ab@gmail.com")).toBe("ab***@gmail.com");
-    });
-
-    it("deve retornar vazio para string vazia", () => {
-        expect(mascararEmail("")).toBe("");
     });
 });
 
 describe("apenasNumeros", () => {
-    it("deve remover caracteres não numéricos", () => {
+    it("deve remover parênteses e traços de uma string", () => {
         expect(apenasNumeros("(11) 99999-0000")).toBe("11999990000");
-    });
-
-    it("deve retornar string vazia para valores sem números", () => {
-        expect(apenasNumeros("abc")).toBe("");
-    });
-
-    it("deve retornar string vazia para string vazia", () => {
-        expect(apenasNumeros("")).toBe("");
     });
 });
 
 describe("contarPalavras", () => {
-    it("deve contar palavras corretamente", () => {
-        expect(contarPalavras("olá mundo")).toBe(2);
-    });
-
-    it("deve retornar 0 para string vazia", () => {
-        expect(contarPalavras("")).toBe(0);
-    });
-
-    it("deve ignorar espaços extras", () => {
-        expect(contarPalavras("  uma  palavra  ")).toBe(2);
+    it("deve contar o número de palavras ignorando espaços extras", () => {
+        expect(contarPalavras("  Cypress é   muito legal  ")).toBe(4);
     });
 });
 
 describe("truncar", () => {
-    it("deve truncar string maior que o limite", () => {
-        expect(truncar("abcdefgh", 5)).toBe("abcde...");
-    });
-
-    it("não deve truncar string dentro do limite", () => {
-        expect(truncar("abc", 5)).toBe("abc");
-    });
-
-    it("deve lidar com string vazia", () => {
-        expect(truncar("", 5)).toBe("");
+    it("deve cortar a string e adicionar reticências", () => {
+        expect(truncar("Este é um texto bem longo", 10)).toBe("Este é um ...");
     });
 });

@@ -1,18 +1,21 @@
 /**
- * Funções utilitárias puras para uso geral nos testes
+ * Funções utilitárias puras para uso geral nos testes.
+ * Estas funções não dependem do Cypress nem do navegador, sendo puramente lógica.
  * Projeto: cypress-bdd / playwright-bdd
  * Testado via Jest em: helpers.test.ts
  */
 
 /**
- * Verifica se uma string é nula, undefined ou vazia
+ * Verifica se uma string é nula, indefinida ou contém apenas espaços.
+ * Útil para validar retornos de campos obrigatórios.
  */
 export function isNulaOuVazia(valor: string | null | undefined): boolean {
     return valor === null || valor === undefined || valor.trim() === "";
 }
 
 /**
- * Capitaliza a primeira letra de uma string
+ * Transforma a primeira letra em maiúscula e o resto em minúscula.
+ * Ex: "HELLO" -> "Hello"
  */
 export function capitalizarPrimeira(valor: string): string {
     if (!valor) return valor;
@@ -20,7 +23,8 @@ export function capitalizarPrimeira(valor: string): string {
 }
 
 /**
- * Mascara parcialmente um e-mail para exibição (ex: jo***@gmail.com)
+ * Mascara um e-mail para privacidade.
+ * Ex: "joao_silva@gmail.com" -> "jo***@gmail.com"
  */
 export function mascararEmail(email: string): string {
     if (!email) return email;
@@ -33,7 +37,8 @@ export function mascararEmail(email: string): string {
 }
 
 /**
- * Remove caracteres não numéricos de uma string
+ * Extrai apenas os números de uma string (remove parênteses, traços, etc).
+ * Muito comum para limpar campos de Telefone ou CPF.
  */
 export function apenasNumeros(valor: string): string {
     if (!valor) return "";
@@ -41,7 +46,7 @@ export function apenasNumeros(valor: string): string {
 }
 
 /**
- * Conta palavras em uma string
+ * Conta quantas palavras existem em uma frase.
  */
 export function contarPalavras(texto: string): number {
     if (!texto || texto.trim() === "") return 0;
@@ -49,7 +54,7 @@ export function contarPalavras(texto: string): number {
 }
 
 /**
- * Trunca uma string ao tamanho máximo e adiciona reticências
+ * Corta uma string se ela for maior que o limite e adiciona "...".
  */
 export function truncar(texto: string, tamanhoMax: number): string {
     if (!texto) return texto;

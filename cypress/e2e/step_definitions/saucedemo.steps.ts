@@ -4,10 +4,12 @@ import { ProductsPage } from "../../pages/ProductsPage";
 import { CartPage } from "../../pages/CartPage";
 
 // ============================================================
-// Step Definitions: SauceDemo (Login + Produtos + Carrinho)
+// Step Definitions: SauceDemo
 // Projeto: cypress-bdd
+// Este arquivo orquestra o fluxo completo de e-commerce.
 // ============================================================
 
+// Instanciamos as páginas necessárias.
 const sauceLoginPage = new SauceLoginPage();
 const productsPage = new ProductsPage();
 const cartPage = new CartPage();
@@ -18,6 +20,10 @@ Given("que estou na página de login do SauceDemo", () => {
     sauceLoginPage.visitar();
 });
 
+/**
+ * Step útil para cenários que começam já logado.
+ * Automatiza o login inicial para focar no teste de produtos ou carrinho.
+ */
 Given("que estou logado no SauceDemo como {string}", (usuario: string) => {
     sauceLoginPage.visitar();
     sauceLoginPage.fazerLogin(usuario, "secret_sauce");
@@ -46,6 +52,8 @@ When(
     }
 );
 
+// ===== VALIDAÇÕES DE LOGIN =====
+
 Then("devo ser redirecionado para a página de produtos", () => {
     sauceLoginPage.verificarUrlProdutos();
 });
@@ -69,6 +77,7 @@ Then("a lista deve conter ao menos {int} produto", (minimo: number) => {
 });
 
 When("eu ordeno os produtos por {string}", (opcao: string) => {
+    // Opções como: "Name (A to Z)", "Price (low to high)", etc.
     productsPage.ordenarPor(opcao);
 });
 
@@ -77,7 +86,7 @@ Then("o primeiro produto deve ser {string}", (nomeProduto: string) => {
 });
 
 Then("o primeiro produto deve ser o mais barato", () => {
-    // Verifica que a ordenação por preço está aplicada comparando os dois primeiros
+    // Lógica personalizada para validar ordenação numérica de preços.
     cy.get(".inventory_item_price").then(($prices) => {
         const preco1 = parseFloat($prices.eq(0).text().replace("$", ""));
         const preco2 = parseFloat($prices.eq(1).text().replace("$", ""));
@@ -117,6 +126,7 @@ When("eu vou para o carrinho", () => {
     productsPage.irParaCarrinho();
 });
 
+// Step genérico para clicar em botões que contém um texto específico.
 When("eu clico em {string}", (botao: string) => {
     cy.contains(botao).click();
 });
