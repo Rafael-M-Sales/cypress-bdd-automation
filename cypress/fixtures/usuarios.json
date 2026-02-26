@@ -1,0 +1,21 @@
+{
+    "usuarios": [
+        {
+            "nome": "tomsmith",
+            "senha": "SuperSecretPassword!",
+            "perfil": "usuario_valido"
+        },
+        {
+            "nome": "usuario_invalido",
+            "senha": "senhaerrada",
+            "perfil": "usuario_invalido"
+        }
+    ],
+    "api": {
+        "baseUrl": "https://reqres.in",
+        "endpoints": {
+            "usuarios": "/api/users",
+            "login": "/api/login"
+        }
+    }
+}
